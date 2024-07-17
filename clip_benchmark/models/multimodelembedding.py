@@ -15,7 +15,7 @@ class Model:
         embedding = []
         for image in images:
             embedding = self._client.get_embeddings(
-                image=Image(image),
+                image=_pil_image_to_image(image),
                 dimension=1408,
             )
             embeddings.extend(embedding.image_embedding)
@@ -30,6 +30,20 @@ class Model:
             )
             embeddings.extend(embedding.text_embedding)
         return torch.tensor(embeddings)
+
+    def _pil_image_to_image(image: PIL.Image) -> Image:
+        # Create a BytesIO object
+        byte_io = io.BytesIO()
+        
+        # Save the image to the BytesIO object in a specific format (e.g., PNG or JPEG)
+        image.save(byte_io, format='JPEG')  # Change format as needed
+        
+        # Get the byte data
+        image_bytes = byte_io.getvalue()
+        
+        # Optionally, close the BytesIO object
+        byte_io.close()
+        return Image(image_bytes)
 
     def _tensor_to_model_image(image_tensor: torch.Tensor) -> Image:
         # Ensure the tensor is on the CPU
