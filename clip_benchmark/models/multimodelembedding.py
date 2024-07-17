@@ -15,7 +15,7 @@ class Model:
         embedding = []
         for image in images:
             embedding = self._client.get_embeddings(
-                image=_tensor_to_model_image(image),
+                image=Image(image),
                 dimension=1408,
             )
             embeddings.extend(embedding.image_embedding)
