@@ -2,6 +2,7 @@ from typing import Union
 import torch
 from .open_clip import load_open_clip
 from .japanese_clip import load_japanese_clip
+from .multimodelembedding import load_multimodelembedding
 
 # loading function must return (model, transform, tokenizer)
 TYPE2FUNC = {
