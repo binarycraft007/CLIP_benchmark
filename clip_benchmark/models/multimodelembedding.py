@@ -12,21 +12,21 @@ class Model:
     def eval(self) -> None:
         return
 
-    def encode(self, images, texts, indexes) -> Tuple[torch.Tensor, torch.Tensor]:
+    def encode(self, images, texts) -> Tuple[torch.Tensor, torch.Tensor]:
         index = 0
         text_embeddings = []
         image_embeddings = [None] * len(images)
         for text0 in texts:
             for text in text0:
                 embedding = self._client.get_embeddings(
-                    image=self._pil_image_to_image(images[indexes[index]]),
+                    image=self._pil_image_to_image(images[index]),
                     contextual_text=text,
                     dimension=1408,
                 )
-                if image_embeddings[indexes[index]] is None:
-                    image_embeddings[indexes[index]] = embedding.image_embedding
+                if image_embeddings[index] is None:
+                    image_embeddings[index] = embedding.image_embedding
                 text_embeddings.append(embedding.text_embedding)
-                index += 1
+            index += 1
 
         return torch.tensor(image_embeddings), torch.tensor(text_embeddings)
 
