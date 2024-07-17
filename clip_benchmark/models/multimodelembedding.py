@@ -15,7 +15,7 @@ class Model:
         embedding = []
         for image in images:
             embedding = self._client.get_embeddings(
-                image=_pil_image_to_image(image),
+                image=self._pil_image_to_image(image),
                 dimension=1408,
             )
             embeddings.extend(embedding.image_embedding)
@@ -31,7 +31,7 @@ class Model:
             embeddings.extend(embedding.text_embedding)
         return torch.tensor(embeddings)
 
-    def _pil_image_to_image(image: PIL.Image) -> Image:
+    def _pil_image_to_image(self, image: PIL.Image) -> Image:
         # Create a BytesIO object
         byte_io = io.BytesIO()
         
