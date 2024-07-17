@@ -8,6 +8,9 @@ class Model:
     def __init__(self, pretrained: str) -> None:
         self._client = MultiModalEmbeddingModel.from_pretrained(pretrained)
 
+    def eval(self) -> None:
+        return
+
     def encode_image(self, images) -> torch.Tensor:
         embedding = []
         for image in images:
