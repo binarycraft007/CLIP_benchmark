@@ -12,7 +12,7 @@ class Model:
         return
 
     def encode_image(self, images) -> torch.Tensor:
-        embedding = []
+        embeddings = []
         for image in images:
             embedding = self._client.get_embeddings(
                 image=self._pil_image_to_image(image),
@@ -22,7 +22,7 @@ class Model:
         return torch.tensor(embeddings)
 
     def encode_text(self, texts) -> torch.Tensor:
-        embedding = []
+        embeddings = []
         for text in texts:
             embedding = self._client.get_embeddings(
                 contextual_text=text,
