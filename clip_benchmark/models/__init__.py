@@ -6,7 +6,8 @@ from .japanese_clip import load_japanese_clip
 # loading function must return (model, transform, tokenizer)
 TYPE2FUNC = {
     "open_clip": load_open_clip,
-    "ja_clip": load_japanese_clip
+    "ja_clip": load_japanese_clip,
+    "multimodelembedding": load_multimodelembedding
 }
 MODEL_TYPES = list(TYPE2FUNC.keys())
 
