@@ -19,18 +19,17 @@ class Model:
                 dimension=1408,
             )
             embeddings.extend(embedding.image_embedding)
-        print(embeddings)
         return torch.tensor(embeddings)
 
     def encode_text(self, texts) -> torch.Tensor:
         embeddings = []
-        for text in texts:
-            print(text)
-            embedding = self._client.get_embeddings(
-                contextual_text=text,
-                dimension=1408,
-            )
-            embeddings.extend(embedding.text_embedding)
+        for text0 in texts:
+            for text in text0:
+                embedding = self._client.get_embeddings(
+                    contextual_text=text,
+                    dimension=1408,
+                )
+                embeddings.extend(embedding.text_embedding)
         return torch.tensor(embeddings)
 
     def _pil_image_to_image(self, image: PIL.Image) -> Image:
